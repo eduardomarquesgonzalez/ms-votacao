@@ -1,0 +1,23 @@
+package com.example.votacao.bbb.ms.service;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+import com.example.votacao.bbb.ms.model.ParticipanteModel;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class VotacaoService {
+	
+	@KafkaListener(topics = "votacao", groupId = "MicroServicoVotacao")
+	public void executar(ConsumerRecord<String, ParticipanteModel> registro) {
+		
+		ParticipanteModel participante = registro.value();
+		log.info("Novo voto recebido = {}", participante);
+		
+	}
+
+}
